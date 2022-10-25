@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="border_width">1dp</dimen>
+    <dimen name="border_height">40dp</dimen>
+    <dimen name="margin_left_right">30dp</dimen>
+</resources>

@@ -6,7 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background_color_2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/app_name_color"
+            android:background="@color/app_name_bg_color"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/prev"
-            android:textColor="@color/blue"
+            android:textColor="@color/arrow_color"
             android:background="@null"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -35,14 +54,15 @@
             android:text="Ott 2022"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black"/>
+            android:textStyle="bold"
+            android:textColor="@color/day_color"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/next"
-            android:textColor="@color/blue"
+            android:textColor="@color/arrow_color"
             android:background="@null"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -54,6 +74,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
         android:orientation="horizontal">
 
         <TextView
@@ -61,8 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="LUN"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -71,8 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="MAR"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -81,8 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="MER"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -91,8 +116,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="GIO"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -101,8 +127,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="VEN"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -111,8 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="SAB"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -121,8 +149,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="DOM"
-            android:textColor="@color/gray"
+            android:textColor="@color/day_color"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:textSize="16dp">
         </TextView>
 
@@ -131,7 +160,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:layout_height="270dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 

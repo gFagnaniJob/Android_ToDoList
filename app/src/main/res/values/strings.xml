@@ -2,4 +2,5 @@
     <string name="app_name">To Do List</string>
     <string name="prev"><![CDATA[<-]]></string>
     <string name="next"><![CDATA[->]]></string>
+    <string name="strikeThrough"><strike>Cosa da fare in giornata</strike></string>
 </resources>

@@ -9,7 +9,9 @@
     <color name="background_color_2">#c2e3ff</color>
     <color name="day_color">#01335e</color>
     <color name="app_name_bg_color">#01335e</color>
+    <color name="check_checked_color">#01335e</color>
     <color name="arrow_color">#01335e</color>
     <color name="app_name_color">#c2e3ff</color>
     <color name="day_cell_selected_color">#01335e</color>
+    <color name="list_border_color">#01335e</color>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".WeeklyViewActivity"
     android:background="@color/background_color_2">
 
     <LinearLayout
@@ -45,7 +45,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/calendar_month_icon_blue" >
+            android:background="@drawable/calendar_month_icon_blue"
+            android:onClick="monthlyAction">
         </Button>
 
         <TextView
@@ -58,8 +59,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/calendar_weekly_icon_blue_1"
-            android:onClick="weeklyAction">
+            android:background="@drawable/calendar_weekly_icon_blue_1">
         </Button>
 
         <TextView
@@ -100,7 +100,7 @@
             android:background="@drawable/left_arrow_blue_1"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:onClick="previousMonthAction" >
+            android:onClick="previousWeekAction" >
         </Button>
 
         <TextView
@@ -124,11 +124,11 @@
             android:background="@drawable/right_arrow_blue_1"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:onClick="nextMonthAction" >
+            android:onClick="nextWeekAction" >
         </Button>
 
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/margin_left_right"
         android:layout_marginRight="@dimen/margin_left_right"
-        android:layout_height="270dp">
+        android:layout_height="60dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -230,7 +230,6 @@
         android:layout_marginLeft="@dimen/margin_list_left_right"
         android:layout_marginRight="@dimen/margin_list_left_right"
         android:layout_marginTop="@dimen/margin_list_top"
-
         android:background="@drawable/list_border">
 
         <ListView
@@ -254,7 +253,7 @@
             android:background="@drawable/plus_round_icon_blue"
             android:onClick="newEventAction"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

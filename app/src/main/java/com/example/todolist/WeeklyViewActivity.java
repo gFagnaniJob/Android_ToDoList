@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import static com.example.todolist.CalendarUtils.daysInMonthArray;
+import static com.example.todolist.CalendarUtils.daysInWeekArray;
 import static com.example.todolist.CalendarUtils.monthYearFromDate;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+public class WeeklyViewActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
@@ -26,56 +25,50 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_weekly_view);
         initWidgets();
-        if (CalendarUtils.selectedDate == null) {
-            CalendarUtils.selectedDate = LocalDate.now();
-        }
-        setMonthView();
+        setWeekView();
     }
-
     private void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setMonthView() {
+    private void setWeekView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
-        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+        ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
-    public void previousMonthAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
-        setMonthView();
-    }
-
-    public void nextMonthAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
-        setMonthView();
-    }
-
-    @Override
-    public void onItemClick(int position, LocalDate date) {
-        if (date != null) {
-            CalendarUtils.selectedDate = date;
-            setMonthView();
-        }
-    }
-
-    public void weeklyAction(View view) {
-        startActivity(new Intent(this, WeeklyViewActivity.class));
+    public void monthlyAction(View view) {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void listViewAction(View view) {
         startActivity(new Intent(this, ListViewActivity.class));
     }
 
+    public void previousWeekAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+        setWeekView();
+    }
+
+    public void nextWeekAction(View view) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+        setWeekView();
+    }
+
     public void newEventAction(View view) {
         startActivity(new Intent(this, EventEditActivity.class));
+    }
+
+    @Override
+    public void onItemClick(int position, LocalDate date) {
+        CalendarUtils.selectedDate = date;
+        setWeekView();
     }
 }

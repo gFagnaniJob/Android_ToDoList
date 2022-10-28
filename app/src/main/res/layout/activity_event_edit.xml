@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@color/background_color_2">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/app_name_bg_color"
+        android:fontFamily="@font/font_title"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/app_name_color"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/activity"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/eventNameET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:ems="12"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:inputType="text">
+
+    </EditText>
+
+    <CheckBox
+        android:id="@+id/importantCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="48dp"
+        android:text="@string/important"
+        android:buttonTint="@color/check_checked_color"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|end"
+        android:paddingEnd="30dp"
+        android:paddingBottom="20dp">
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:onClick="listViewAction"
+            android:text="@string/cancel"
+            android:backgroundTint="@color/button_bg_color"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"></Button>
+
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:onClick="listViewAction"
+            android:text="@string/add"
+            android:backgroundTint="@color/button_bg_color"
+            android:textColor="@color/white"></Button>
+    </LinearLayout>
+
+</LinearLayout>

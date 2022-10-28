@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".ListViewActivity"
     android:background="@color/background_color_2">
 
     <LinearLayout
@@ -45,7 +45,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/calendar_month_icon_blue" >
+            android:background="@drawable/calendar_month_icon_blue"
+            android:onClick="monthlyAction">
         </Button>
 
         <TextView
@@ -73,7 +74,7 @@
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
             android:background="@drawable/todo_icon_blue_2"
-            android:onClick="listViewAction" >
+            android:onClick="nextMonthAction" >
         </Button>
 
         <TextView
@@ -128,7 +129,7 @@
         </Button>
 
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -233,30 +234,7 @@
 
         android:background="@drawable/list_border">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="230dp">
-
-        </ListView>
-
     </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/plus_round_icon_blue"
-            android:onClick="newEventAction"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

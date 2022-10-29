@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".EventEditActivity"
     android:background="@color/background_color_2">
 
     <TextView
@@ -42,6 +42,7 @@
         android:textSize="20sp"
         android:ems="12"
         android:textCursorDrawable="@drawable/cursor_color"
+        android:backgroundTint="@drawable/edit_text_focus_tint"
         android:inputType="text">
 
     </EditText>
@@ -67,20 +68,20 @@
         <Button
             android:layout_width="90dp"
             android:layout_height="50dp"
-            android:onClick="listViewAction"
+            android:onClick="goBackAction"
             android:text="@string/cancel"
             android:backgroundTint="@color/button_bg_color"
             android:layout_marginRight="10dp"
-            android:textColor="@color/white"></Button>
+            android:textColor="@color/white" />
 
 
         <Button
             android:layout_width="90dp"
             android:layout_height="50dp"
-            android:onClick="listViewAction"
+            android:onClick="saveEventAction"
             android:text="@string/add"
             android:backgroundTint="@color/button_bg_color"
-            android:textColor="@color/white"></Button>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

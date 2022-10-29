@@ -8,20 +8,29 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
+    private ListView eventsListViewMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setContentView(R.layout.activity_main);
         initWidgets();
         if (CalendarUtils.selectedDate == null) {
-            CalendarUtils.selectedDate = LocalDate.now();
+            CalendarUtils.selectedDate = LocalDate.now(ZoneId.systemDefault());
         }
         setMonthView();
     }
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
         monthYearText = findViewById(R.id.monthYearTV);
+        eventsListViewMonth = findViewById(R.id.eventsListViewMonth);
     }
 
     private void setMonthView() {
@@ -47,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+
+        setEventAdapter();
     }
 
     public void previousMonthAction(View view) {
@@ -69,13 +81,30 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     public void weeklyAction(View view) {
         startActivity(new Intent(this, WeeklyViewActivity.class));
+        finish();
     }
 
     public void listViewAction(View view) {
         startActivity(new Intent(this, ListViewActivity.class));
+        finish();
     }
 
     public void newEventAction(View view) {
         startActivity(new Intent(this, EventEditActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setEventAdapter();
+    }
+
+    private void setEventAdapter() {
+        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        Event.sortEvents();
+
+        EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
+
+        eventsListViewMonth.setAdapter(eventAdapter);
     }
 }

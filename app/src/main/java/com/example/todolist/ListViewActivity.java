@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,7 +58,14 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
 
     private void updateEventAdapter() {
         dailyEvents = Event.eventsNotChecked();
-        eventAdapter.notifyDataSetChanged();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //eventAdapter.notifyDataSetChanged();
+                eventsListView.setAdapter(eventAdapter);
+            }
+        }, 500);
     }
 
     public void monthlyAction(View view) {

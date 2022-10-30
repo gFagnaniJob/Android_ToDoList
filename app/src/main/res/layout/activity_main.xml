@@ -236,7 +236,8 @@
         <ListView
             android:id="@+id/eventsListViewMonth"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="230dp"
+            android:listSelector="@color/transparent">
 
         </ListView>
 

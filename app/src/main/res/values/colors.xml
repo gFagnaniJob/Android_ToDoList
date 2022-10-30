@@ -16,4 +16,5 @@
     <color name="list_border_color">#01335e</color>
     <color name="button_bg_color">#01335e</color>
     <color name="cursor_color">#01335e</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

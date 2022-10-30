@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.location.Address;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -120,8 +121,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     private void updateEventAdapter() {
-        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
-        eventAdapter.notifyDataSetChanged();
+        dailyEvents.clear();
+        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //eventAdapter.notifyDataSetChanged();
+                eventsListViewMonth.setAdapter(eventAdapter);
+            }
+        }, 500);
     }
 
     @Override

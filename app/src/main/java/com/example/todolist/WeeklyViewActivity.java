@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -110,8 +111,16 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
     }
 
     private void updateEventAdapter() {
-        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
-        eventAdapter.notifyDataSetChanged();
+        dailyEvents.clear();
+        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate));
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //eventAdapter.notifyDataSetChanged();
+                eventsListView.setAdapter(eventAdapter);
+            }
+        }, 500);
     }
 
     @Override

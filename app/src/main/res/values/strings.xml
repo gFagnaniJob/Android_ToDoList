@@ -7,4 +7,7 @@
     <string name="important">Importante</string>
     <string name="cancel">Annulla</string>
     <string name="add">aggiungi</string>
+    <string name="menu_edit">Modifica</string>
+    <string name="menu_delete">Elimina</string>
+    <string name="todo_activities">Lista attività da fare</string>
 </resources>

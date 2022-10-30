@@ -226,14 +226,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="440dp"
         android:layout_marginLeft="@dimen/margin_list_left_right"
         android:layout_marginRight="@dimen/margin_list_left_right"
         android:layout_marginTop="@dimen/margin_list_top"
         android:background="@drawable/list_border">
 
         <ListView
-            android:id="@+id/eventsListView"
+            android:id="@+id/eventsWeekListView"
             android:layout_width="match_parent"
             android:layout_height="230dp">
 

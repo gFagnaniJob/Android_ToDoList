@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class Event {
 
@@ -16,6 +17,8 @@ public class Event {
     private Integer order;
 
     private boolean checked;
+
+    private static ArrayList<Event> tmpEventsList = new ArrayList<>();
 
     public Event(String name, LocalDate date, boolean important, Integer order) {
         this.id = eventsList.size();
@@ -63,7 +66,7 @@ public class Event {
     }
 
     public Integer getOrder() {
-        return order;
+        return checked ? -1 : order;
     }
 
     public void setOrder(Integer order) {
@@ -71,6 +74,7 @@ public class Event {
     }
 
     public static ArrayList<Event> eventsForDate(LocalDate date) {
+        tmpEventsList = new ArrayList<>();
         ArrayList<Event> events = new ArrayList<>();
 
         for (Event event : eventsList) {
@@ -79,16 +83,36 @@ public class Event {
             }
         }
 
+        tmpEventsList = events;
+
+        events = sortEvents();
         return events;
     }
 
-    public static  void sortEvents() {
-        Collections.sort(eventsList, new Comparator<Event>() {
+    public static ArrayList<Event> eventsNotChecked() {
+        ArrayList<Event> events = new ArrayList<>();
+
+        for (Event event : eventsList) {
+            if (!event.isChecked()) {
+                events.add(event);
+            }
+        }
+
+        tmpEventsList = events;
+
+        events = sortEvents();
+
+        return events;
+    }
+
+    public static ArrayList<Event> sortEvents() {
+        Collections.sort(tmpEventsList, new Comparator<Event>() {
             @Override
             public int compare(Event lhs, Event rhs) {
                 // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                return (lhs.getOrder() > rhs.getOrder() || lhs.isChecked()) ? -1 : (lhs.getOrder() < rhs.getOrder() || !lhs.isChecked()) ? 1 : 0;
+                return (lhs.getOrder() > rhs.getOrder()) ? -1 : (lhs.getOrder() < rhs.getOrder()) ? 1 : 0;
             }
         });
+        return tmpEventsList;
     }
 }

@@ -15,16 +15,17 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
     private List<Event> events;
+    private final EventAdapter.OnItemListener onItemListener;
 
-    public EventAdapter(@NonNull Context context, List<Event> events) {
+    public EventAdapter(@NonNull Context context, List<Event> events, EventAdapter.OnItemListener onItemListener) {
         super(context, 0, events);
         this.events = events;
+        this.onItemListener = onItemListener;
     }
 
     public List<Event> getItems() {
@@ -45,12 +46,10 @@ public class EventAdapter extends ArrayAdapter<Event> {
         String eventTitle = event.getName();
         eventCheckBox.setText(eventTitle);
 
-        strikeThroughAndOrderEvents(eventCheckBox, event);
-
         eventCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                strikeThroughAndOrderEvents(eventCheckBox, event);
+                onItemListener.onChecked((CheckBox) view, event);
             }
         });
 
@@ -61,17 +60,20 @@ public class EventAdapter extends ArrayAdapter<Event> {
             eventCheckBox.setTypeface(eventCheckBox.getTypeface(), Typeface.NORMAL);
         }
 
-        return convertView;
-    }
-
-    public void strikeThroughAndOrderEvents(CheckBox eventCheckBox, Event event) {
-        if (eventCheckBox.isChecked()) {
+        if (event.isChecked()) {
             eventCheckBox.setPaintFlags(eventCheckBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            eventCheckBox.setChecked(true);
             event.setChecked(true);
         } else {
             eventCheckBox.setPaintFlags(eventCheckBox.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            eventCheckBox.setChecked(false);
             event.setChecked(false);
         }
-        Event.sortEvents();
+
+        return convertView;
+    }
+
+    public interface OnItemListener {
+        void onChecked(CheckBox cb, Event e);
     }
 }

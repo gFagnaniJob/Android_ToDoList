@@ -36,11 +36,15 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
     private ListView eventsListView;
     ArrayList<Event> dailyEvents;
     EventAdapter eventAdapter;
+    private EventDatabase appDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_view);
+
+        appDb = EventDatabase.getInstance(this);
+
         initWidgets();
         EventUtils.selectedEvent = null;
         setWeekView();
@@ -104,7 +108,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
     }
 
     private void setEventAdapter() {
-        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate, appDb);
         eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents, this);
 
         eventsListView.setAdapter(eventAdapter);
@@ -112,7 +116,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
 
     private void updateEventAdapter() {
         dailyEvents.clear();
-        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate));
+        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate, appDb));
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

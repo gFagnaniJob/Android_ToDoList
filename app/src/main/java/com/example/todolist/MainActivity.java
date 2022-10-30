@@ -40,11 +40,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private ListView eventsListViewMonth;
     private ArrayList<Event> dailyEvents;
     private EventAdapter eventAdapter;
+    private EventDatabase appDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        appDb = EventDatabase.getInstance(this);
+
         initWidgets();
         if (CalendarUtils.selectedDate == null) {
             CalendarUtils.selectedDate = LocalDate.now(ZoneId.systemDefault());
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     private void setEventAdapter() {
-        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate, appDb);
 
         eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents, this);
 
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     private void updateEventAdapter() {
         dailyEvents.clear();
-        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate));
+        dailyEvents.addAll(Event.eventsForDate(CalendarUtils.selectedDate, appDb));
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

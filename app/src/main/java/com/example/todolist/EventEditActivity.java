@@ -13,11 +13,14 @@ public class EventEditActivity extends AppCompatActivity {
     private EditText eventNameET;
     private CheckBox importantCB;
     private Integer eventId;
+    private EventDatabase appDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
+
+        appDb = EventDatabase.getInstance(this);
 
         initWidgets();
 
@@ -47,7 +50,8 @@ public class EventEditActivity extends AppCompatActivity {
         if (eventId == -1) {
             Integer order = Event.eventsList.size() + 1;
             Event newEvent = new Event(eventName, CalendarUtils.selectedDate, important, order);
-            Event.eventsList.add(newEvent);
+            //Event.eventsList.add(newEvent);
+            appDb.eventDao().insertEvent(newEvent);
         } else {
             for (Event e : Event.eventsList) {
                 if (e.getId() == eventId) {

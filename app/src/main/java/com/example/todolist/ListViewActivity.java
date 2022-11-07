@@ -29,11 +29,13 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
     private ListView eventsListView;
     ArrayList<Event> dailyEvents;
     EventAdapter eventAdapter;
+    private EventDatabase appDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
+        appDb = EventDatabase.getInstance(this);
         initWidgets();
         EventUtils.selectedEvent = null;
         setView();
@@ -50,14 +52,15 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
     }
 
     private void setEventAdapter() {
-        dailyEvents = Event.eventsNotChecked();
+        dailyEvents = Event.eventsNotChecked(appDb);
         eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents, this);
 
         eventsListView.setAdapter(eventAdapter);
     }
 
     private void updateEventAdapter() {
-        dailyEvents = Event.eventsNotChecked();
+        dailyEvents.clear();
+        dailyEvents.addAll(Event.eventsNotChecked(appDb));
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -101,7 +104,7 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
                 startActivity(intent);
                 return true;
             case R.id.delete:
-                setDeleteDialog(e.getId());
+                setDeleteDialog(e);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -115,10 +118,12 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
         } else {
             e.setChecked(false);
         }
+
+        appDb.eventDao().updateEvent(e);
         updateEventAdapter();
     }
 
-    private void setDeleteDialog(int eventId) {
+    private void setDeleteDialog(Event e) {
         AlertDialog.Builder alert = new AlertDialog.Builder(ListViewActivity.this);
         alert.setTitle("Eliminare attività");
         alert.setMessage("Sei sicuro di voler eliminare questa attività?");
@@ -126,15 +131,12 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ArrayList<Event> newList = new ArrayList<>();
-                for (Event e : Event.eventsList) {
-                    if (e.getId() != eventId) {
-                        newList.add(e);
-                    }
+                appDb.eventDao().deleteEvent(e);
+                ArrayList<EventCheckedDate> eventsCheckedDate = (ArrayList<EventCheckedDate>) appDb.eventCheckedDateDao().getEventsById(e.getId());
+                for (EventCheckedDate ecd : eventsCheckedDate) {
+                    appDb.eventCheckedDateDao().deleteEvent(ecd);
                 }
-                Event.eventsList.clear();
-                Event.eventsList.addAll(newList);
-                eventAdapter.notifyDataSetChanged();
+                updateEventAdapter();
                 dialog.dismiss();
             }
         });

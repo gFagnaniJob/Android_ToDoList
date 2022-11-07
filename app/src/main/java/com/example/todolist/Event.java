@@ -9,9 +9,6 @@ import java.util.Comparator;
 
 @Entity()
 public class Event {
-
-    public static ArrayList<Event> eventsList = new ArrayList<>();
-
     @PrimaryKey(autoGenerate = true)
     int id;
     @ColumnInfo(name = "name")
@@ -24,26 +21,32 @@ public class Event {
     Integer order;
     @ColumnInfo(name = "checked")
     boolean checked;
+    @ColumnInfo(name = "repeated")
+    boolean repeated;
 
-    private static ArrayList<Event> tmpEventsList = new ArrayList<>();
+    @ColumnInfo(name = "dateStartRepetition")
+    LocalDate dateStartRepetition;
 
-
-    public Event(int id, String name, LocalDate date, boolean important, Integer order) {
+    public Event(int id, String name, LocalDate date, boolean important, Integer order, boolean repeated, LocalDate dateStartRepetition) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.important = important;
         this.order = order;
         this.checked = false;
+        this.repeated = repeated;
+        this.dateStartRepetition = dateStartRepetition;
     }
 
     @Ignore
-    public Event(String name, LocalDate date, boolean important, Integer order) {
+    public Event(String name, LocalDate date, boolean important, Integer order, boolean repeated, LocalDate dateStartRepetition) {
         this.name = name;
         this.date = date;
         this.important = important;
         this.order = order;
         this.checked = false;
+        this.repeated = repeated;
+        this.dateStartRepetition = dateStartRepetition;
     }
 
     @Ignore
@@ -83,6 +86,14 @@ public class Event {
         return checked;
     }
     @Ignore
+    public void setRepeated(boolean repeated) {
+        this.repeated = repeated;
+    }
+    @Ignore
+    public boolean isRepeated() {
+        return repeated;
+    }
+    @Ignore
     public Integer getOrder() {
         return checked ? -1 : order;
     }
@@ -90,49 +101,28 @@ public class Event {
     public void setOrder(Integer order) {
         this.order = order;
     }
+
+
+    @Ignore
+    public LocalDate getDateStartRepetition() {
+        return dateStartRepetition;
+    }
+
+    @Ignore
+    public void setDateStartRepetition(LocalDate dateStartRepetition) {
+        this.dateStartRepetition = dateStartRepetition;
+    }
     @Ignore
     public static ArrayList<Event> eventsForDate(LocalDate date, EventDatabase db) {
-        tmpEventsList = new ArrayList<>();
         ArrayList<Event> events = new ArrayList<>();
-
-        for (Event event : eventsList) {
-            if (event.getDate().equals(date)) {
-                events.add(event);
-            }
-        }
-
         events = (ArrayList<Event>) db.eventDao().getEventPerDate(date);
-
-        tmpEventsList = events;
-
-        events = sortEvents();
         return events;
     }
+
     @Ignore
-    public static ArrayList<Event> eventsNotChecked() {
+    public static ArrayList<Event> eventsNotChecked(EventDatabase db) {
         ArrayList<Event> events = new ArrayList<>();
-
-        for (Event event : eventsList) {
-            if (!event.isChecked()) {
-                events.add(event);
-            }
-        }
-
-        tmpEventsList = events;
-
-        events = sortEvents();
-
+        events = (ArrayList<Event>) db.eventDao().getEventNotChecked();
         return events;
-    }
-    @Ignore
-    public static ArrayList<Event> sortEvents() {
-        Collections.sort(tmpEventsList, new Comparator<Event>() {
-            @Override
-            public int compare(Event lhs, Event rhs) {
-                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                return (lhs.getOrder() > rhs.getOrder()) ? -1 : (lhs.getOrder() < rhs.getOrder()) ? 1 : 0;
-            }
-        });
-        return tmpEventsList;
     }
 }

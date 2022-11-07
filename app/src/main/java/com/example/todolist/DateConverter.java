@@ -10,12 +10,20 @@ import java.util.*;
 public class DateConverter {
 
     @TypeConverter
-    public LocalDate toDate(Long timestamp) {
-        return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDate();
+    public static LocalDate toDate(String dateString) {
+        if (dateString == null) {
+            return null;
+        } else {
+            return LocalDate.parse(dateString);
+        }
     }
 
     @TypeConverter
-    public Long toTimestamp(LocalDate date) {
-        return date.toEpochDay();
+    public static String toDateString(LocalDate date) {
+        if (date == null) {
+            return null;
+        } else {
+            return date.toString();
+        }
     }
 }

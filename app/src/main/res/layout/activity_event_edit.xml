@@ -47,16 +47,28 @@
 
     </EditText>
 
-    <CheckBox
-        android:id="@+id/importantCB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:minHeight="48dp"
-        android:text="@string/important"
-        android:buttonTint="@color/check_checked_color"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp" />
+        <CheckBox
+            android:id="@+id/importantCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/important"
+            android:buttonTint="@color/check_checked_color"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/repeatedCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/repeat"
+            android:buttonTint="@color/check_checked_color"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

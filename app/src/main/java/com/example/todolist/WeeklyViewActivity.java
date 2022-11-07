@@ -150,7 +150,7 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
                 startActivity(intent);
                 return true;
             case R.id.delete:
-                setDeleteDialog(e.getId());
+                setDeleteDialog(e);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -167,10 +167,21 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
             cb.setPaintFlags(cb.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             e.setChecked(false);
         }
+
+        if (e.isRepeated()) {
+            ArrayList<EventCheckedDate> eventsCheckedDate = (ArrayList<EventCheckedDate>) appDb.eventCheckedDateDao().getEventByIdDate(e.getId(), CalendarUtils.selectedDate);
+            if (eventsCheckedDate.size() == 0) {
+                appDb.eventCheckedDateDao().insertEvent(new EventCheckedDate(e.getId(), CalendarUtils.selectedDate));
+            } else {
+                appDb.eventCheckedDateDao().deleteEvent(new EventCheckedDate(e.getId(), CalendarUtils.selectedDate));
+            }
+        } else {
+            appDb.eventDao().updateEvent(e);
+        }
         updateEventAdapter();
     }
 
-    private void setDeleteDialog(int eventId) {
+    private void setDeleteDialog(Event e) {
         AlertDialog.Builder alert = new AlertDialog.Builder(WeeklyViewActivity.this);
         alert.setTitle("Eliminare attività");
         alert.setMessage("Sei sicuro di voler eliminare questa attività?");
@@ -178,15 +189,12 @@ public class WeeklyViewActivity extends AppCompatActivity implements CalendarAda
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ArrayList<Event> newList = new ArrayList<>();
-                for (Event e : Event.eventsList) {
-                    if (e.getId() != eventId) {
-                        newList.add(e);
-                    }
+                appDb.eventDao().deleteEvent(e);
+                ArrayList<EventCheckedDate> eventsCheckedDate = (ArrayList<EventCheckedDate>) appDb.eventCheckedDateDao().getEventsById(e.getId());
+                for (EventCheckedDate ecd : eventsCheckedDate) {
+                    appDb.eventCheckedDateDao().deleteEvent(ecd);
                 }
-                Event.eventsList.clear();
-                Event.eventsList.addAll(newList);
-                eventAdapter.notifyDataSetChanged();
+                updateEventAdapter();
                 dialog.dismiss();
             }
         });

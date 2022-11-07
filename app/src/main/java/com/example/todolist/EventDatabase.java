@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@Database(entities = Event.class, exportSchema = false, version = 1)
+@Database(entities = {Event.class, EventCheckedDate.class}, exportSchema = false, version = 7)
 @TypeConverters({DateConverter.class})
 public abstract class EventDatabase extends RoomDatabase {
     private static final String DB_NAME = "event_db";
@@ -21,6 +21,7 @@ public abstract class EventDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), EventDatabase.class, DB_NAME)
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build();
         }
 
@@ -28,4 +29,5 @@ public abstract class EventDatabase extends RoomDatabase {
     }
 
     public abstract EventDao eventDao();
+    public abstract EventCheckedDateDao eventCheckedDateDao();
 }

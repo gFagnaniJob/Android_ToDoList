@@ -73,8 +73,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/todo_icon_blue_2"
-            android:onClick="nextMonthAction" >
+            android:background="@drawable/todo_icon_blue_2" >
         </Button>
 
         <TextView

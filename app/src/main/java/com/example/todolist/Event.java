@@ -125,4 +125,11 @@ public class Event {
         events = (ArrayList<Event>) db.eventDao().getEventNotChecked();
         return events;
     }
+
+    @Ignore
+    public static ArrayList<Event> pastEventsNotChecked(EventDatabase db) {
+        ArrayList<Event> events = new ArrayList<>();
+        events = (ArrayList<Event>) db.eventDao().getPastEventNotChecked();
+        return events;
+    }
 }

@@ -52,7 +52,8 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
     }
 
     private void setEventAdapter() {
-        dailyEvents = Event.eventsNotChecked(appDb);
+        //dailyEvents = Event.eventsNotChecked(appDb);
+        dailyEvents = Event.pastEventsNotChecked(appDb);
         eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents, this);
 
         eventsListView.setAdapter(eventAdapter);
@@ -60,7 +61,8 @@ public class ListViewActivity extends AppCompatActivity implements EventAdapter.
 
     private void updateEventAdapter() {
         dailyEvents.clear();
-        dailyEvents.addAll(Event.eventsNotChecked(appDb));
+        //dailyEvents.addAll(Event.eventsNotChecked(appDb));
+        dailyEvents.addAll(Event.pastEventsNotChecked(appDb));
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

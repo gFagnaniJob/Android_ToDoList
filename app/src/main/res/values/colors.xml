@@ -6,15 +6,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color_1">#b8ddfc</color>
-    <color name="background_color_2">#c2e3ff</color>
-    <color name="day_color">#01335e</color>
-    <color name="app_name_bg_color">#01335e</color>
-    <color name="check_checked_color">#01335e</color>
-    <color name="arrow_color">#01335e</color>
-    <color name="app_name_color">#c2e3ff</color>
-    <color name="day_cell_selected_color">#01335e</color>
-    <color name="list_border_color">#01335e</color>
-    <color name="button_bg_color">#01335e</color>
-    <color name="cursor_color">#01335e</color>
+    <color name="background_color_2">#e8b095</color>
+    <color name="day_color">#e06364</color>
+    <color name="app_name_bg_color">#e06364</color>
+    <color name="check_checked_color">#e06364</color>
+    <color name="arrow_color">#e06364</color>
+    <color name="app_name_color">#e8b095</color>
+    <color name="day_cell_selected_color">#e06364</color>
+    <color name="list_border_color">#e06364</color>
+    <color name="button_bg_color">#e06364</color>
+    <color name="cursor_color">#e06364</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>

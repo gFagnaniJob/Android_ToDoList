@@ -25,6 +25,9 @@ public interface EventDao {
     @Query("SELECT * FROM Event WHERE checked = 0 AND repeated = 0 ORDER BY checked ASC, `order` DESC")
     List<Event> getEventNotChecked();
 
+    @Query("SELECT * FROM Event WHERE checked = 0 AND repeated = 0 AND date <= DATE('now') ORDER BY checked ASC, `order` DESC")
+    List<Event> getPastEventNotChecked();
+
     @Insert
     void insertEvent(Event event);
 

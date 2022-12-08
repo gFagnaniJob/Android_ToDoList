@@ -45,7 +45,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/calendar_month_icon_blue"
+            android:background="@drawable/calendar_month_icon_red"
             android:onClick="monthlyAction">
         </Button>
 
@@ -59,7 +59,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/calendar_weekly_icon_blue_1"
+            android:background="@drawable/calendar_weekly_icon_red_1"
             android:onClick="weeklyAction">
         </Button>
 
@@ -73,8 +73,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:textColor="@color/arrow_color"
-            android:background="@drawable/todo_icon_blue_2"
-            android:onClick="nextMonthAction" >
+            android:background="@drawable/todo_icon_red_2" >
         </Button>
 
         <TextView

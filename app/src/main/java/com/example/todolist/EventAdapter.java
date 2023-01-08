@@ -55,7 +55,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         if (event.isImportant()) {
             SpannableString str = new SpannableString(eventCheckBox.getText());
-            str.setSpan(new BackgroundColorSpan(Color.parseColor("#c2e3ff")), 0, eventCheckBox.getText().length(), 0);
+            str.setSpan(new BackgroundColorSpan(Color.parseColor("#e8b095")), 0, eventCheckBox.getText().length(), 0);
             eventCheckBox.setText(str);
             eventCheckBox.setTypeface(eventCheckBox.getTypeface(), Typeface.NORMAL);
         }
